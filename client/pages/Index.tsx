@@ -11,17 +11,28 @@ export default function Index() {
     setExpandedFaq(expandedFaq === id ? null : id);
   };
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      setSubmitted(true);
-      setTimeout(() => {
-        setEmail("");
-        setShowEmailCapture(false);
-        setSubmitted(false);
-      }, 2000);
-    }
-  };
+ const handleEmailSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+  if (email) {
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        "form-name": "melt-waitlist",
+        "email": email,
+      }).toString(),
+    })
+      .then(() => {
+        setSubmitted(true);
+        setTimeout(() => {
+          setEmail("");
+          setShowEmailCapture(false);
+          setSubmitted(false);
+        }, 2000);
+      })
+      .catch((error) => console.error(error));
+  }
+};
 
   return (
     <div className="min-h-screen bg-background">
