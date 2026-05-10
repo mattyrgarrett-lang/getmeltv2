@@ -82,7 +82,8 @@ export default function Index() {
                   ✓ Thanks! Check your email.
                 </div>
               ) : (
-                <form onSubmit={handleEmailSubmit} className="flex flex-col gap-2">
+                <form name="melt-waitlist" netlify onSubmit={handleEmailSubmit} className="flex flex-col gap-2">
+  <input type="hidden" name="form-name" value="melt-waitlist" />
                   <div className="flex gap-2">
                     <input
                       type="email"
@@ -646,7 +647,8 @@ export default function Index() {
                 ✓ Thanks! Check your email.
               </div>
             ) : (
-              <form onSubmit={handleEmailSubmit} className="flex flex-col gap-2">
+              <form name="melt-waitlist" netlify onSubmit={handleEmailSubmit} className="flex flex-col gap-2">
+  <input type="hidden" name="form-name" value="melt-waitlist" />
                 <div className="flex gap-2">
                   <input
                     type="email"
