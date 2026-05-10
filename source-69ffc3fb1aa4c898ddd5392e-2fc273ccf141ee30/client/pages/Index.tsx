@@ -63,6 +63,11 @@ export default function Index() {
               <Check size={18} className="text-accent" />
               30-day money-back guarantee
             </div>
+            <div className="hidden sm:block w-px h-6 bg-border" />
+            <div className="flex items-center gap-2">
+              <Check size={18} className="text-accent" />
+            Clinically validated delivery
+            </div>
           </div>
 
           {/* CTA Button */}
@@ -650,8 +655,9 @@ export default function Index() {
                     </div>
                     <div>
                       <p className="text-sm text-foreground opacity-60 mb-1">Melt Strips</p>
-                      <p className="font-semibold bg-primary bg-opacity-10 rounded px-2 py-1" style={{ color: "rgba(168, 213, 181, 1)" }}>
-                        {row.values[3] === "Yes" ? "✓ Yes" : row.values[3]}
+                    <p className="font-semibold bg-primary bg-opacity-10 rounded px-2 py-1" style={{ color: "rgba(168, 213, 181, 1)" }}>
+  {row.values[3] === "Yes" ? "✓ Yes" : row.values[3]}
+</p>
                       </p>
                     </div>
                   </div>
