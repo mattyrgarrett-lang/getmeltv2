@@ -54,30 +54,136 @@ export default function Index() {
       <section className="bg-gradient-to-br from-background to-secondary py-16 px-4 sm:py-24">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h1 className="text-5xl sm:text-6xl font-bold text-foreground leading-tight mb-6 font-serif">
-              Your Collagen Isn't Working. And It's Not Your Fault.
-            </h1>
-            <p className="text-xl text-foreground opacity-90 mb-8 leading-relaxed">
-              The real reason your skin isn't responding — and the 5-second dissolving strip that finally fixes it.
+
+            {/* VOC Quote Hook — she reads this and thinks "that's me" */}
+            <p className="text-lg text-foreground opacity-60 italic mb-4 font-serif">
+              "I had zero idea what/who I was looking at in the mirror."
             </p>
 
-            {/* Clinical Trust Bar */}
-            <div className="bg-card rounded-2xl border border-border p-6 mb-8 flex flex-col sm:flex-row items-center justify-around gap-4 text-sm text-foreground">
-              <div className="flex items-center gap-2">
-                <Check size={18} className="text-accent" />
-                Backed by peer-reviewed science
-              </div>
-              <div className="hidden sm:block w-px h-6 bg-border" />
-              <div className="flex items-center gap-2">
-                <Check size={18} className="text-accent" />
-                30-day money-back guarantee
-              </div>
-              <div className="hidden sm:block w-px h-6 bg-border" />
-              <div className="flex items-center gap-2">
-                <Check size={18} className="text-accent" />
-                Clinically validated delivery
+            {/* Primary Headline — emotion first, mechanism second */}
+            <h1 className="text-5xl sm:text-6xl font-bold text-foreground leading-tight mb-4 font-serif">
+              Your collagen isn't working. And your stomach acid is the reason why.
+            </h1>
+
+            {/* Subheadline — the absolution */}
+            <p className="text-xl text-foreground opacity-80 mb-6 leading-relaxed">
+              It wasn't your fault. It wasn't your consistency. The powder was being destroyed before it ever reached your skin — every single morning.
+            </p>
+
+            {/* VOC Social Proof Bar — real quotes from your research */}
+            <div className="bg-card rounded-2xl border border-border p-5 mb-8">
+              <p className="text-xs font-semibold text-foreground opacity-40 uppercase tracking-widest mb-4">
+                What changes when collagen actually arrives:
+              </p>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <span className="text-accent mt-1 flex-shrink-0">→</span>
+                  <p className="text-sm text-foreground opacity-80 italic">"I no longer cry cleaning out my shower drain."</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-accent mt-1 flex-shrink-0">→</span>
+                  <p className="text-sm text-foreground opacity-80 italic">"My hairdresser said I'm growing new baby hairs."</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-accent mt-1 flex-shrink-0">→</span>
+                  <p className="text-sm text-foreground opacity-80 italic">"I literally look like a different person."</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-accent mt-1 flex-shrink-0">→</span>
+                  <p className="text-sm text-foreground opacity-80 italic">"Hair shines like when I was a child."</p>
+                </div>
               </div>
             </div>
+
+            {/* Clinical Trust Bar */}
+            <div className="flex flex-wrap gap-4 mb-8 text-sm text-foreground">
+              <div className="flex items-center gap-2">
+                <Check size={16} className="text-accent" />
+                Backed by peer-reviewed science
+              </div>
+              <div className="flex items-center gap-2">
+                <Check size={16} className="text-accent" />
+                Clinically validated delivery
+              </div>
+              <div className="flex items-center gap-2">
+                <Check size={16} className="text-accent" />
+                Results in 14 days
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <div className="flex flex-col gap-3 w-full sm:w-auto">
+              {!showEmailCapture ? (
+                <button
+                  onClick={() => setShowEmailCapture(true)}
+                  className="px-8 py-4 bg-primary text-primary-foreground text-lg font-bold rounded-2xl hover:opacity-90 transition"
+                  style={{ backgroundColor: "rgb(168, 117, 97)" }}
+                >
+                  I Want This — Notify Me When Available.
+                </button>
+              ) : submitted ? (
+                <div className="px-8 py-4 bg-accent text-accent-foreground text-lg font-bold rounded-2xl text-center">
+                  ✓ Thanks! Check your email.
+                </div>
+              ) : (
+                <form
+                  name="melt-waitlist"
+                  netlify
+                  onSubmit={handleEmailSubmit}
+                  className="flex flex-col gap-2"
+                >
+                  <input type="hidden" name="form-name" value="melt-waitlist" />
+                  <div className="flex gap-2">
+                    <input
+                      type="email"
+                      name="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="your@email.com"
+                      required
+                      className="flex-1 px-4 py-3 bg-background border border-border rounded-xl text-foreground placeholder-foreground placeholder-opacity-50 focus:outline-none focus:ring-2 focus:ring-primary"
+                      autoFocus
+                    />
+                    <button
+                      type="submit"
+                      className="px-6 py-3 bg-primary text-primary-foreground font-bold rounded-xl hover:opacity-90 transition"
+                      style={{ backgroundColor: "rgb(168, 117, 97)" }}
+                    >
+                      Notify Me
+                    </button>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowEmailCapture(false)}
+                    className="text-sm text-foreground opacity-60 hover:opacity-100 transition"
+                  >
+                    Cancel
+                  </button>
+                </form>
+              )}
+            </div>
+
+            {/* Mini Guarantee — visible immediately, before she scrolls */}
+            <div className="mt-4 flex items-start gap-3 bg-secondary rounded-xl p-4 border border-border">
+              <Check size={18} className="text-accent flex-shrink-0 mt-0.5" />
+              <p className="text-sm text-foreground opacity-80 leading-relaxed">
+                <span className="font-semibold">30-day money-back guarantee.</span> If you don't feel a difference — full refund. No forms. No questions. You've already wasted money on collagen that didn't work. This time the risk is ours.
+              </p>
+            </div>
+
+          </div>
+
+          {/* Hero Image */}
+          <div className="flex justify-center items-center">
+            <img
+              src="https://cdn.builder.io/api/v1/image/assets%2Fa930cc26a2354bcb842f28aee44ccf2d%2Fc7e761d32e8a4377894d2d15f89dcadd"
+              alt="Melt collagen strips on marble counter"
+              className="w-full max-w-md rounded-2xl shadow-lg object-contain"
+              style={{ objectFit: "contain", objectPosition: "center" }}
+            />
+          </div>
+        </div>
+      </section>
 
             {/* CTA Button */}
             <div className="flex flex-col gap-3 w-full sm:w-auto">
@@ -143,68 +249,124 @@ export default function Index() {
         </div>
       </section>
 
-      {/* SECTION 2: THE PROBLEM */}
+   {/* SECTION 2: THE PROBLEM */}
       <section className="py-16 px-4 sm:py-24 bg-card">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-foreground mb-4 font-serif">
-            You've tried collagen. It didn't work. Here's why.
+
+          {/* Opening — the Mirror Moment */}
+          <h2 className="text-4xl font-bold text-foreground mb-6 font-serif">
+            You committed. You stirred the scoop. You waited. You saw nothing.
           </h2>
-          <p className="text-xl text-foreground italic mb-12 border-l-4 border-primary pl-6">
-            "I had zero idea what/who I was looking at in the mirror."
-          </p>
 
           <div className="space-y-6 text-foreground opacity-90 leading-relaxed text-lg">
+
             <p>
-              If you know that feeling — the morning light, the skin that doesn't look like yours anymore, the
-              hollow under the eye that wasn't there two years ago — you already know why you're here.
-            </p>
-            <p>And you've probably already tried collagen.</p>
-            <p>
-              You stirred the scoop into your coffee. You committed. Six weeks. Eight weeks. Maybe three
-              months. You saw nothing. You got bloated. You got gas. You pushed through it because
-              everyone said it takes time. And then quietly, without ceremony, you stopped reordering.
-            </p>
-            <p className="font-semibold">The worst part? You blamed yourself.</p>
-            <p>
-              You told yourself you weren't consistent enough. That your body just doesn't respond. That
-              you're someone collagen doesn't work for.
-            </p>
-            <p className="font-semibold">
-              Here's the truth: the collagen didn't fail because of you. It failed because of what happens the
-              second you swallow it.
+              Maybe it was the morning light hitting differently. Maybe it was the photo someone tagged you in. Maybe it was the store clerk who offered you a senior discount — and the way it landed.
             </p>
 
-            <div className="bg-secondary border border-border rounded-lg p-8 my-8">
-              <p className="font-semibold mb-4">
-                The moment collagen enters your stomach, hydrochloric acid and digestive enzymes begin
-                dismantling it. What survives isn't collagen anymore. It's a pool of generic amino acids your
-                body distributes to whatever it considers most urgent that day.
-              </p>
-              <p className="mb-4">
-                Your body has no mechanism to redirect those amino acids back to your skin, your hair, or
-                your joints. There's no postal route. There's no guarantee.
-              </p>
+            <p>
+              You started taking collagen. You did everything right. Six weeks. Eight weeks. Some of you pushed to three months. You stirred the powder into your coffee and endured the smell — the one that made your drink taste like something that belonged in a barn. You pushed through the bloating. The gas. The mornings where your stomach felt like it was staging a protest.
+            </p>
+
+            <p className="font-semibold text-foreground">
+              And then, quietly, without ceremony — you stopped reordering.
+            </p>
+
+            <p>
+              Because nothing changed. And somewhere in those months of showing up, of being consistent, of doing the thing you were supposed to do — you drew a quiet conclusion about yourself.
+            </p>
+
+            <p className="text-xl font-semibold text-foreground border-l-4 border-primary pl-6 py-2">
+              "I've tried so many things. I feel like I keep failing at taking care of myself."
+            </p>
+
+            <p>
+              That wasn't a failure of consistency. That wasn't your body rejecting collagen. That was something else entirely — and the supplement industry has known about it for years.
+            </p>
+
+          </div>
+
+          {/* The Corruption Narrative */}
+          <div className="bg-secondary border border-border rounded-2xl p-8 my-10">
+            <h3 className="text-2xl font-bold text-foreground mb-6 font-serif">
+              Why did your collagen stop working?
+            </h3>
+
+            <div className="space-y-5 text-foreground opacity-90 leading-relaxed">
               <p>
-                And for many women, the experience isn't just useless — it's physically painful. The bloating,
-                the gas, the nausea. You were suffering through a supplement that wasn't working. That ends here.
+                Here's what your collagen brand's marketing never mentioned: the supplement industry optimizes for cost, not for bioavailability. Powder is cheap to produce. Capsules are cheap to fill. Gummies are cheap to manufacture and easy to sell.
+              </p>
+
+              <p>
+                The scoop you used to find in your tub? Gone — to save two cents per unit. The formula you trusted for two years? Quietly changed. Quality reduced. Cheaper raw material sourced. Same label. Same price. Different product.
+              </p>
+
+              <p className="font-semibold">
+                You weren't imagining it getting worse. It did get worse. And they hoped you'd blame yourself before you figured that out.
+              </p>
+
+              <p>
+                But here's the deeper problem — the one that was always there, even before the cutting of corners:
+              </p>
+            </div>
+          </div>
+
+          {/* The Mechanism of the Problem */}
+          <div className="space-y-6 text-foreground opacity-90 leading-relaxed text-lg">
+
+            <h3 className="text-3xl font-bold text-foreground font-serif">
+              The moment you swallowed it, it was already over.
+            </h3>
+
+            <p>
+              The second collagen enters your stomach, hydrochloric acid and digestive enzymes — the same ones designed to break down protein — begin dismantling it. Collagen is a protein. It gets taken apart.
+            </p>
+
+            <p>
+              What survives isn't collagen anymore. It's a pool of generic amino acids that your body distributes to whatever it considers most urgent that day: energy, muscle repair, immune function. Your body has no mechanism to redirect those amino acids back to your skin, your hair, or your joints.
+            </p>
+
+            <div className="bg-card border-2 border-border rounded-2xl p-6 my-6">
+              <p className="text-lg italic text-foreground opacity-80 text-center font-serif">
+                "Collagen is a fragile protein that's denatured and destroyed once it is ingested."
+              </p>
+              <p className="text-sm text-foreground opacity-50 text-center mt-2">
+                — What a plastic surgeon tells his patients who ask why their powder isn't working
               </p>
             </div>
 
             <p>
-              Then there's the second problem no one talks about: the first-pass effect. Even if a fraction of
-              the collagen peptides survive your stomach, they pass through your liver before reaching your
-              bloodstream — dramatically reducing what ever makes it through.
+              Then there's the second problem — the first-pass effect. Even if a fraction of the collagen peptides survive your stomach, they pass through your liver before ever reaching your bloodstream. The liver processes and filters compounds entering from the digestive tract, dramatically reducing what makes it through.
             </p>
-            <p className="text-lg italic font-semibold">
-              In your own words: "the most expensive urine on the planet."
+
+            <p className="text-xl italic font-semibold text-foreground">
+              "The most expensive urine on the planet."
             </p>
-            <p className="text-foreground opacity-70 mt-8">
-              The supplement industry has known about this problem for years. They kept selling you bigger
-              tubs anyway.
+
+            <p>
+              That's not bitterness. That's biology. And the supplement industry — selling you bigger tubs with missing scoops and reformulated formulas — has known about this problem for years.
             </p>
+
+            {/* Emotional Resolution */}
+            <div className="bg-primary bg-opacity-10 border border-primary rounded-2xl p-8 mt-8">
+              <h3 className="text-2xl font-bold text-foreground mb-4 font-serif">
+                You were never the problem.
+              </h3>
+              <p className="text-foreground opacity-90 leading-relaxed text-lg">
+                Your collagen didn't fail because of your consistency. It didn't fail because of your genetics. It failed because of what happens the moment you swallow it. The delivery format was destroying the collagen before it ever had a chance to reach your skin.
+              </p>
+              <p className="text-foreground font-semibold mt-4 text-lg">
+                Every single morning, for every month you committed — it was being destroyed on the way in.
+              </p>
+              <p className="text-foreground opacity-90 mt-4 leading-relaxed">
+                That ends here.
+              </p>
+            </div>
+
           </div>
         </div>
       </section>
+
 
       {/* SECTION 3: THE MECHANISM */}
       <section className="py-16 px-4 sm:py-24 bg-secondary">
