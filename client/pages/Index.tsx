@@ -54,7 +54,7 @@ export default function Index() {
       {/* SECTION 1: HERO */}
       <section className="bg-gradient-to-br from-background to-secondary py-16 px-4 sm:py-24">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
+          <div className="lg:order-1 order-2">
             <p className="text-lg text-foreground opacity-60 italic mb-4 font-serif">
               "I had zero idea what/who I was looking at in the mirror."
             </p>
@@ -158,7 +158,7 @@ export default function Index() {
               </p>
             </div>
           </div>
-          <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center lg:order-2 order-1">
             <img
               src="/mirror_moment.jpg"
               alt="Woman looking at her reflection in a bathroom mirror"
