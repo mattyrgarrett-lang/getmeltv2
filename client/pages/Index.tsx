@@ -172,14 +172,13 @@ export default function Index() {
             </div>
 
           </div>
-
-          {/* Hero Image */}
+{/* Hero Image */}
           <div className="flex justify-center items-center">
             <img
-              src="https://cdn.builder.io/api/v1/image/assets%2Fa930cc26a2354bcb842f28aee44ccf2d%2Fc7e761d32e8a4377894d2d15f89dcadd"
-              alt="Melt collagen strips on marble counter"
-              className="w-full max-w-md rounded-2xl shadow-lg object-contain"
-              style={{ objectFit: "contain", objectPosition: "center" }}
+              src="/mirror_moment.jpg"
+              alt="Woman looking at her reflection in a bathroom mirror"
+              className="w-full max-w-md rounded-2xl shadow-lg object-cover"
+              style={{ objectFit: "cover", objectPosition: "center" }}
             />
           </div>
         </div>
