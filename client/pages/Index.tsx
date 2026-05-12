@@ -172,7 +172,8 @@ export default function Index() {
             </div>
 
           </div>
- {/* Hero Image */}
+          
+          {/* Hero Image */}
             <div className="flex justify-center items-center">
               <img
                 src="/mirror_moment.jpg"
