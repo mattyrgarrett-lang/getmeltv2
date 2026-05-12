@@ -11,31 +11,32 @@ export default function Index() {
     setExpandedFaq(expandedFaq === id ? null : id);
   };
 
- const handleEmailSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
-  if (email) {
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({
-        "form-name": "melt-waitlist",
-        "email": email,
-      }).toString(),
-    })
-      .then(() => {
-        setSubmitted(true);
-        setTimeout(() => {
-          setEmail("");
-          setShowEmailCapture(false);
-          setSubmitted(false);
-        }, 2000);
+  const handleEmailSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "form-name": "melt-waitlist",
+          email: email,
+        }).toString(),
       })
-      .catch((error) => console.error(error));
-  }
-};
+        .then(() => {
+          setSubmitted(true);
+          setTimeout(() => {
+            setEmail("");
+            setShowEmailCapture(false);
+            setSubmitted(false);
+          }, 2000);
+        })
+        .catch((error) => console.error(error));
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
+
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-card border-b border-border">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -54,23 +55,15 @@ export default function Index() {
       <section className="bg-gradient-to-br from-background to-secondary py-16 px-4 sm:py-24">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-
-            {/* VOC Quote Hook — she reads this and thinks "that's me" */}
             <p className="text-lg text-foreground opacity-60 italic mb-4 font-serif">
               "I had zero idea what/who I was looking at in the mirror."
             </p>
-
-            {/* Primary Headline — emotion first, mechanism second */}
             <h1 className="text-5xl sm:text-6xl font-bold text-foreground leading-tight mb-4 font-serif">
               Your collagen isn't working. And your stomach acid is the reason why.
             </h1>
-
-            {/* Subheadline — the absolution */}
             <p className="text-xl text-foreground opacity-80 mb-6 leading-relaxed">
               It wasn't your fault. It wasn't your consistency. The powder was being destroyed before it ever reached your skin — every single morning.
             </p>
-
-            {/* VOC Social Proof Bar — real quotes from your research */}
             <div className="bg-card rounded-2xl border border-border p-5 mb-8">
               <p className="text-xs font-semibold text-foreground opacity-40 uppercase tracking-widest mb-4">
                 What changes when collagen actually arrives:
@@ -94,8 +87,6 @@ export default function Index() {
                 </div>
               </div>
             </div>
-
-            {/* Clinical Trust Bar */}
             <div className="flex flex-wrap gap-4 mb-8 text-sm text-foreground">
               <div className="flex items-center gap-2">
                 <Check size={16} className="text-accent" />
@@ -110,8 +101,6 @@ export default function Index() {
                 Results in 14 days
               </div>
             </div>
-
-            {/* CTA Button */}
             <div className="flex flex-col gap-3 w-full sm:w-auto">
               {!showEmailCapture ? (
                 <button
@@ -162,170 +151,79 @@ export default function Index() {
                 </form>
               )}
             </div>
-
-            {/* Mini Guarantee — visible immediately, before she scrolls */}
             <div className="mt-4 flex items-start gap-3 bg-secondary rounded-xl p-4 border border-border">
               <Check size={18} className="text-accent flex-shrink-0 mt-0.5" />
               <p className="text-sm text-foreground opacity-80 leading-relaxed">
                 <span className="font-semibold">30-day money-back guarantee.</span> If you don't feel a difference — full refund. No forms. No questions. You've already wasted money on collagen that didn't work. This time the risk is ours.
               </p>
             </div>
-
           </div>
-          
-          {/* Hero Image */}
-            <div className="flex justify-center items-center">
-              <img
-                src="/mirror_moment.jpg"
-                alt="Woman looking at her reflection in a bathroom mirror"
-                className="w-full max-w-md rounded-2xl shadow-lg object-cover"
-                style={{ objectFit: "cover", objectPosition: "center" }}
-              />
-            </div>
-        </div>
-      </section>
-
-            {/* CTA Button */}
-            <div className="flex flex-col gap-3 w-full sm:w-auto">
-              {!showEmailCapture ? (
-                <button
-                  onClick={() => setShowEmailCapture(true)}
-                  className="px-8 py-4 bg-primary text-primary-foreground text-lg font-bold rounded-2xl hover:opacity-90 transition"
-                >
-                  I Want This — Notify Me When Available.
-                </button>
-              ) : submitted ? (
-                <div className="px-8 py-4 bg-accent text-accent-foreground text-lg font-bold rounded-2xl text-center">
-                  ✓ Thanks! Check your email.
-                </div>
-              ) : (
-                <form name="melt-waitlist" netlify onSubmit={handleEmailSubmit} className="flex flex-col gap-2">
-  <input type="hidden" name="form-name" value="melt-waitlist" />
-                  <div className="flex gap-2">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="your@email.com"
-                      required
-                      className="flex-1 px-4 py-3 bg-background border border-border rounded-xl text-foreground placeholder-foreground placeholder-opacity-50 focus:outline-none focus:ring-2 focus:ring-primary"
-                      autoFocus
-                    />
-                    <button
-                      type="submit"
-                      className="px-6 py-3 bg-primary text-primary-foreground font-bold rounded-xl hover:opacity-90 transition"
-                    >
-                      Notify
-                    </button>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setShowEmailCapture(false)}
-                    className="text-sm text-foreground opacity-60 hover:opacity-100 transition"
-                  >
-                    Cancel
-                  </button>
-                </form>
-              )}
-            </div>
-
-            {/* Trust Line */}
-            <p className="text-sm text-foreground opacity-75 mt-4">
-              30-day money-back guarantee. Email us. We refund everything.
-              <br />
-              No forms, no catch, no "we'll look into it."
-            </p>
-          </div>
-
-          {/* Hero Image */}
           <div className="flex justify-center items-center">
             <img
-              src="https://cdn.builder.io/api/v1/image/assets%2Fa930cc26a2354bcb842f28aee44ccf2d%2Fc7e761d32e8a4377894d2d15f89dcadd"
-              alt="Melt collagen strips on marble counter"
-              className="w-full max-w-md rounded-2xl shadow-lg object-contain"
-              style={{ objectFit: "contain", objectPosition: "center" }}
+              src="/mirror_moment.jpg"
+              alt="Woman looking at her reflection in a bathroom mirror"
+              className="w-full max-w-md rounded-2xl shadow-lg object-cover"
+              style={{ objectFit: "cover", objectPosition: "center" }}
             />
           </div>
         </div>
       </section>
 
-   {/* SECTION 2: THE PROBLEM */}
+      {/* SECTION 2: THE PROBLEM */}
       <section className="py-16 px-4 sm:py-24 bg-card">
         <div className="max-w-4xl mx-auto">
-
-          {/* Opening — the Mirror Moment */}
           <h2 className="text-4xl font-bold text-foreground mb-6 font-serif">
             You committed. You stirred the scoop. You waited. You saw nothing.
           </h2>
-
           <div className="space-y-6 text-foreground opacity-90 leading-relaxed text-lg">
-
             <p>
               Maybe it was the morning light hitting differently. Maybe it was the photo someone tagged you in. Maybe it was the store clerk who offered you a senior discount — and the way it landed.
             </p>
-
             <p>
-              You started taking collagen. You did everything right. Six weeks. Eight weeks. Some of you pushed to three months. You stirred the powder into your coffee and endured the smell — the one that made your drink taste like something that belonged in a barn. You pushed through the bloating. The gas. The mornings where your stomach felt like it was staging a protest.
+              You started taking collagen. You did everything right. Six weeks. Eight weeks. Some of you pushed to three months. You stirred the powder into your coffee and endured the smell. You pushed through the bloating. The gas. The mornings where your stomach felt like it was staging a protest.
             </p>
-
             <p className="font-semibold text-foreground">
               And then, quietly, without ceremony — you stopped reordering.
             </p>
-
             <p>
               Because nothing changed. And somewhere in those months of showing up, of being consistent, of doing the thing you were supposed to do — you drew a quiet conclusion about yourself.
             </p>
-
             <p className="text-xl font-semibold text-foreground border-l-4 border-primary pl-6 py-2">
               "I've tried so many things. I feel like I keep failing at taking care of myself."
             </p>
-
             <p>
               That wasn't a failure of consistency. That wasn't your body rejecting collagen. That was something else entirely — and the supplement industry has known about it for years.
             </p>
-
           </div>
-
-          {/* The Corruption Narrative */}
           <div className="bg-secondary border border-border rounded-2xl p-8 my-10">
             <h3 className="text-2xl font-bold text-foreground mb-6 font-serif">
               Why did your collagen stop working?
             </h3>
-
             <div className="space-y-5 text-foreground opacity-90 leading-relaxed">
               <p>
                 Here's what your collagen brand's marketing never mentioned: the supplement industry optimizes for cost, not for bioavailability. Powder is cheap to produce. Capsules are cheap to fill. Gummies are cheap to manufacture and easy to sell.
               </p>
-
               <p>
                 The scoop you used to find in your tub? Gone — to save two cents per unit. The formula you trusted for two years? Quietly changed. Quality reduced. Cheaper raw material sourced. Same label. Same price. Different product.
               </p>
-
               <p className="font-semibold">
                 You weren't imagining it getting worse. It did get worse. And they hoped you'd blame yourself before you figured that out.
               </p>
-
               <p>
                 But here's the deeper problem — the one that was always there, even before the cutting of corners:
               </p>
             </div>
           </div>
-
-          {/* The Mechanism of the Problem */}
           <div className="space-y-6 text-foreground opacity-90 leading-relaxed text-lg">
-
             <h3 className="text-3xl font-bold text-foreground font-serif">
               The moment you swallowed it, it was already over.
             </h3>
-
             <p>
               The second collagen enters your stomach, hydrochloric acid and digestive enzymes — the same ones designed to break down protein — begin dismantling it. Collagen is a protein. It gets taken apart.
             </p>
-
             <p>
               What survives isn't collagen anymore. It's a pool of generic amino acids that your body distributes to whatever it considers most urgent that day: energy, muscle repair, immune function. Your body has no mechanism to redirect those amino acids back to your skin, your hair, or your joints.
             </p>
-
             <div className="bg-card border-2 border-border rounded-2xl p-6 my-6">
               <p className="text-lg italic text-foreground opacity-80 text-center font-serif">
                 "Collagen is a fragile protein that's denatured and destroyed once it is ingested."
@@ -334,20 +232,15 @@ export default function Index() {
                 — What a plastic surgeon tells his patients who ask why their powder isn't working
               </p>
             </div>
-
             <p>
-              Then there's the second problem — the first-pass effect. Even if a fraction of the collagen peptides survive your stomach, they pass through your liver before ever reaching your bloodstream. The liver processes and filters compounds entering from the digestive tract, dramatically reducing what makes it through.
+              Then there's the second problem — the first-pass effect. Even if a fraction of the collagen peptides survive your stomach, they pass through your liver before ever reaching your bloodstream. The liver dramatically reduces what makes it through.
             </p>
-
             <p className="text-xl italic font-semibold text-foreground">
               "The most expensive urine on the planet."
             </p>
-
             <p>
-              That's not bitterness. That's biology. And the supplement industry — selling you bigger tubs with missing scoops and reformulated formulas — has known about this problem for years.
+              That's not bitterness. That's biology. And the supplement industry has known about this problem for years.
             </p>
-
-            {/* Emotional Resolution */}
             <div className="bg-primary bg-opacity-10 border border-primary rounded-2xl p-8 mt-8">
               <h3 className="text-2xl font-bold text-foreground mb-4 font-serif">
                 You were never the problem.
@@ -362,11 +255,9 @@ export default function Index() {
                 That ends here.
               </p>
             </div>
-
           </div>
         </div>
       </section>
-
 
       {/* SECTION 3: THE MECHANISM */}
       <section className="py-16 px-4 sm:py-24 bg-secondary">
@@ -374,27 +265,16 @@ export default function Index() {
           <h2 className="text-4xl font-bold text-foreground mb-12 font-serif">
             What if collagen could bypass your stomach entirely?
           </h2>
-
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div className="space-y-6 text-foreground opacity-90 leading-relaxed text-lg">
-              <p className="font-semibold">
-                It can. Doctors have been doing it for decades — just not for collagen.
-              </p>
+              <p className="font-semibold">It can. Doctors have been doing it for decades — just not for collagen.</p>
               <p>
-                Emergency heart medications like nitroglycerin aren't swallowed. They're placed under the
-                tongue. The mucosal lining of your mouth absorbs compounds directly into the capillary network,
-                entering your bloodstream in seconds — completely bypassing your stomach, small intestine,
-                and the liver's first-pass metabolism.
+                Emergency heart medications like nitroglycerin aren't swallowed. They're placed under the tongue. The mucosal lining of your mouth absorbs compounds directly into the capillary network, entering your bloodstream in seconds — completely bypassing your stomach, small intestine, and the liver's first-pass metabolism.
               </p>
-              <p>
-                This isn't experimental. It's the gold-standard delivery route for medications where speed and
-                absorption are non-negotiable. The pharmaceutical world has relied on it for 50 years.
-              </p>
+              <p>This isn't experimental. It's the gold-standard delivery route for medications where speed and absorption are non-negotiable. The pharmaceutical world has relied on it for 50 years.</p>
               <p>The supplement industry simply never applied it to collagen.</p>
               <p className="font-semibold text-primary">Until now.</p>
             </div>
-
-            {/* Mechanism Image */}
             <div className="flex justify-center items-start">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2Fa930cc26a2354bcb842f28aee44ccf2d%2Fc1d2fb8a76f049b49c5c1d4aeac5c94f"
@@ -403,15 +283,13 @@ export default function Index() {
               />
             </div>
           </div>
-
           <div className="space-y-6 text-foreground opacity-90 leading-relaxed text-lg mt-12">
             <div className="bg-card border-2 border-primary rounded-2xl p-8 my-8">
               <h3 className="text-2xl font-bold text-foreground mb-4 font-serif">
                 Melt delivers collagen the same way emergency heart medication enters the bloodstream.
               </h3>
               <p className="mb-4">
-                Each strip dissolves on your tongue in under 10 seconds. The collagen peptides absorb directly
-                through your oral mucosa and enter your systemic circulation as intact peptides.
+                Each strip dissolves on your tongue in under 10 seconds. The collagen peptides absorb directly through your oral mucosa and enter your systemic circulation as intact peptides.
               </p>
               <div className="flex flex-col gap-3 font-semibold text-foreground">
                 <div className="flex items-center gap-3">
@@ -428,15 +306,9 @@ export default function Index() {
                 </div>
               </div>
             </div>
-
-            <h3 className="text-2xl font-bold text-foreground mt-8 mb-4 font-serif">
-              And the molecular size matters.
-            </h3>
+            <h3 className="text-2xl font-bold text-foreground mt-8 mb-4 font-serif">And the molecular size matters.</h3>
             <p>
-              Most commercial collagen powders contain peptides at 2,000–5,000 Daltons. Research
-              published in the Journal of Food Hygiene and Safety found that collagen peptides at 500
-              Daltons achieve approximately 3x higher absorption through oral mucosal cells compared to
-              larger peptides found in standard powders.
+              Most commercial collagen powders contain peptides at 2,000–5,000 Daltons. Research published in the Journal of Food Hygiene and Safety found that collagen peptides at 500 Daltons achieve approximately 3x higher absorption through oral mucosal cells compared to larger peptides found in standard powders.
             </p>
             <p className="font-semibold">
               Melt uses micro-peptide collagen formulated at approximately 500 Daltons. Not the highest dose. The right dose, delivered the right way.
@@ -448,42 +320,29 @@ export default function Index() {
       {/* SECTION 4: PROOF */}
       <section className="py-16 px-4 sm:py-24 bg-card">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-foreground mb-4 font-serif">
-            The Science Behind the Strip
-          </h2>
-          <p className="text-xl text-foreground opacity-90 mb-12">
-            Melt is built on two independently published bodies of research.
-          </p>
-
+          <h2 className="text-4xl font-bold text-foreground mb-4 font-serif">The Science Behind the Strip</h2>
+          <p className="text-xl text-foreground opacity-90 mb-12">Melt is built on two independently published bodies of research.</p>
           <div className="space-y-8">
             <div className="border-l-4 border-primary pl-6">
               <h3 className="text-xl font-bold text-foreground mb-2 font-serif">On buccal collagen delivery:</h3>
               <p className="text-foreground opacity-90 leading-relaxed">
-                A peer-reviewed clinical trial published in Applied Sciences (MDPI, 2021) tested dissolvable
-                collagen delivery films on the oral mucosa. The result:
+                A peer-reviewed clinical trial published in Applied Sciences (MDPI, 2021) tested dissolvable collagen delivery films on the oral mucosa. The result:
                 <span className="font-semibold"> statistically significant improvements in skin hydration and elasticity within 14 days.</span>{" "}
                 <a href="#" className="text-primary font-semibold hover:underline">Read the study →</a>
               </p>
             </div>
-
             <div className="border-l-4 border-primary pl-6">
               <h3 className="text-xl font-bold text-foreground mb-2 font-serif">On the 500 Dalton advantage:</h3>
               <p className="text-foreground opacity-90 leading-relaxed">
-                Research published in the Journal of Food Hygiene and Safety found collagen peptides at 500
-                Daltons absorbed at approximately 3x the rate of larger peptides. Melt is formulated at approximately 500 Daltons.{" "}
+                Research published in the Journal of Food Hygiene and Safety found collagen peptides at 500 Daltons absorbed at approximately 3x the rate of larger peptides. Melt is formulated at approximately 500 Daltons.{" "}
                 <a href="#" className="text-primary font-semibold hover:underline">Read the study →</a>
               </p>
             </div>
           </div>
-
           <div className="bg-secondary border border-border rounded-2xl p-8 mt-12">
             <h3 className="text-2xl font-bold text-foreground mb-4 font-serif">Be Among the First.</h3>
-            <p className="text-foreground opacity-90 leading-relaxed mb-4">
-              Melt is new. We don't have hundreds of reviews yet — because this technology is new.
-            </p>
-            <p className="text-foreground opacity-90 leading-relaxed font-semibold">
-              The science is there. The guarantee is there. The only thing left is to try it.
-            </p>
+            <p className="text-foreground opacity-90 leading-relaxed mb-4">Melt is new. We don't have hundreds of reviews yet — because this technology is new.</p>
+            <p className="text-foreground opacity-90 leading-relaxed font-semibold">The science is there. The guarantee is there. The only thing left is to try it.</p>
           </div>
         </div>
       </section>
@@ -491,22 +350,14 @@ export default function Index() {
       {/* SECTION 5: THE PRODUCT */}
       <section className="py-16 px-4 sm:py-24 bg-background">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-foreground mb-4 font-serif">
-            Meet Melt. Collagen that actually arrives.
-          </h2>
+          <h2 className="text-4xl font-bold text-foreground mb-4 font-serif">Meet Melt. Collagen that actually arrives.</h2>
           <p className="text-2xl text-foreground font-semibold mb-12">One strip. Five seconds. That's it.</p>
-
           <div className="bg-card rounded-2xl p-8 mb-12 border border-border">
             <div className="space-y-4 mb-8">
               <p className="text-foreground opacity-90 leading-relaxed">Peel it. Place it on your tongue. Let it dissolve.</p>
-              <p className="text-foreground opacity-90 leading-relaxed font-semibold">
-                No blender. No measuring spoon. No chalky aftertaste. No bloating. No cow smell. No prep. No cleanup.
-              </p>
-              <p className="text-foreground opacity-90 leading-relaxed">
-                It takes less time than looking for the collagen scoop you can never find.
-              </p>
+              <p className="text-foreground opacity-90 leading-relaxed font-semibold">No blender. No measuring spoon. No chalky aftertaste. No bloating. No cow smell. No prep. No cleanup.</p>
+              <p className="text-foreground opacity-90 leading-relaxed">It takes less time than looking for the collagen scoop you can never find.</p>
             </div>
-
             <div className="mb-8 -mx-8 -mb-8">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2Fa930cc26a2354bcb842f28aee44ccf2d%2F5b69a2e48af3461cb033f4ddafe0d05c"
@@ -515,7 +366,6 @@ export default function Index() {
               />
             </div>
           </div>
-
           <div className="bg-card rounded-2xl p-8 border border-border">
             <h3 className="text-xl font-bold text-foreground mb-4 font-serif">What's inside each strip:</h3>
             <ul className="space-y-3 mb-8">
@@ -532,17 +382,13 @@ export default function Index() {
                 <span><span className="font-semibold">Clean, simple ingredients.</span> No sucralose. No artificial fillers.</span>
               </li>
             </ul>
-
             <h3 className="text-xl font-bold text-foreground mb-4 font-serif">Each box contains:</h3>
             <ul className="space-y-2 text-foreground opacity-90 mb-8">
               <li className="flex items-center gap-3"><div className="w-2 h-2 bg-primary rounded-full" />30 strips (30-day supply)</li>
               <li className="flex items-center gap-3"><div className="w-2 h-2 bg-primary rounded-full" />1 strip per day</li>
               <li className="flex items-center gap-3"><div className="w-2 h-2 bg-primary rounded-full" />Mango flavor — actually pleasant.</li>
             </ul>
-
-            <p className="text-foreground opacity-90 leading-relaxed font-semibold">
-              Works anywhere: In bed before you get up. In the car. At your desk. There is nothing to forget.
-            </p>
+            <p className="text-foreground opacity-90 leading-relaxed font-semibold">Works anywhere: In bed before you get up. In the car. At your desk. There is nothing to forget.</p>
           </div>
         </div>
       </section>
@@ -551,7 +397,6 @@ export default function Index() {
       <section className="py-16 px-4 sm:py-24 bg-card">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold text-foreground mb-12 font-serif">Three steps. Ten seconds. Done.</h2>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { step: "1", title: "Peel", description: "Open your Melt tin and peel one strip from the packaging." },
@@ -567,11 +412,8 @@ export default function Index() {
               </div>
             ))}
           </div>
-
           <div className="mt-12 bg-secondary rounded-2xl p-8 border border-border">
-            <p className="text-foreground opacity-90 leading-relaxed">
-              While you go on with your morning, collagen peptides are already in your bloodstream.
-            </p>
+            <p className="text-foreground opacity-90 leading-relaxed">While you go on with your morning, collagen peptides are already in your bloodstream.</p>
             <p className="text-foreground opacity-90 leading-relaxed font-semibold mt-4">No water. No prep. No waiting.</p>
           </div>
         </div>
@@ -584,14 +426,12 @@ export default function Index() {
           <p className="text-lg text-foreground opacity-90 mb-12 leading-relaxed">
             Most collagen brands ask you to wait 8–12 weeks. Melt absorbs directly. The timeline is shorter.
           </p>
-
           <div className="bg-card rounded-2xl p-8 border border-border mb-8">
             <p className="text-lg text-foreground font-semibold mb-4">A peer-reviewed clinical study showed:</p>
             <p className="text-foreground opacity-90 leading-relaxed font-bold">
               Statistically significant improvements in skin hydration and elasticity in just 14 days. Not 12 weeks. 14 days.
             </p>
           </div>
-
           <div className="space-y-6">
             {[
               { week: "Week 1–2", text: "Skin begins feeling more hydrated. The process has started." },
@@ -604,8 +444,6 @@ export default function Index() {
               </div>
             ))}
           </div>
-
-          {/* Timeline Results Image */}
           <div className="mt-12 mb-12 flex justify-center">
             <img
               src="https://cdn.builder.io/api/v1/image/assets%2Fa930cc26a2354bcb842f28aee44ccf2d%2F10be074f39f44f88ba9957233284664f"
@@ -613,7 +451,6 @@ export default function Index() {
               className="w-full max-w-md rounded-2xl shadow-xl object-cover"
             />
           </div>
-
           <div className="mt-8 bg-accent bg-opacity-10 border border-accent rounded-2xl p-6">
             <p className="text-foreground font-semibold">
               If you don't feel a difference within 30 days, we'll refund every cent. No forms. No questions.
@@ -625,11 +462,7 @@ export default function Index() {
       {/* SECTION 8: COMPARISON */}
       <section className="py-16 px-4 sm:py-24 bg-card">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl font-bold text-foreground mb-12 font-serif">
-            Melt vs. everything you've already tried
-          </h2>
-
-          {/* Desktop Table */}
+          <h2 className="text-4xl font-bold text-foreground mb-12 font-serif">Melt vs. everything you've already tried</h2>
           <div className="hidden lg:block overflow-x-auto">
             <table className="w-full border-collapse">
               <thead>
@@ -661,8 +494,6 @@ export default function Index() {
               </tbody>
             </table>
           </div>
-
-          {/* Mobile Stacked Cards */}
           <div className="lg:hidden space-y-6">
             {[
               { label: "Survives stomach acid", values: ["No", "No", "No", "Yes"] },
@@ -710,7 +541,6 @@ export default function Index() {
           <h2 className="text-4xl font-bold text-foreground mb-12 font-serif">
             Honest answers to the questions you're already asking
           </h2>
-
           <div className="space-y-4">
             {[
               {
@@ -777,14 +607,10 @@ export default function Index() {
           <h2 className="text-4xl font-bold text-foreground mb-8 font-serif">
             Try it for 30 days. If it doesn't work, you pay nothing.
           </h2>
-
           <div className="bg-accent bg-opacity-10 border-2 border-accent rounded-2xl p-8">
+            <p className="text-lg text-foreground opacity-90 leading-relaxed mb-6">We're confident enough in how Melt works to back it completely.</p>
             <p className="text-lg text-foreground opacity-90 leading-relaxed mb-6">
-              We're confident enough in how Melt works to back it completely.
-            </p>
-            <p className="text-lg text-foreground opacity-90 leading-relaxed mb-6">
-              Try Melt for 30 days. If you don't notice a difference — email us within 30 days of delivery.
-              We'll refund every cent. No forms. No questions asked.
+              Try Melt for 30 days. If you don't notice a difference — email us within 30 days of delivery. We'll refund every cent. No forms. No questions asked.
             </p>
             <p className="text-lg font-semibold text-foreground">
               You've already spent money on collagen that didn't work. This time, if it doesn't deliver, the risk is ours.
@@ -799,14 +625,12 @@ export default function Index() {
           <h2 className="text-4xl sm:text-5xl font-bold mb-8 leading-tight font-serif">
             The woman who finally found the thing that actually works.
           </h2>
-
           <div className="space-y-6 text-lg leading-relaxed mb-12">
             <p>You're the one whose dermatologist notices the change and asks what you did.</p>
             <p>You're the one whose friend pulls her aside at dinner and says "your skin looks incredible."</p>
             <p>You've been waiting for something that actually gets in.</p>
             <p className="font-bold text-3xl">That's Melt.</p>
           </div>
-
           <div className="flex flex-col gap-3 w-full sm:w-auto">
             {!showEmailCapture ? (
               <button
@@ -820,11 +644,17 @@ export default function Index() {
                 ✓ Thanks! Check your email.
               </div>
             ) : (
-              <form name="melt-waitlist" netlify onSubmit={handleEmailSubmit} className="flex flex-col gap-2">
-  <input type="hidden" name="form-name" value="melt-waitlist" />
+              <form
+                name="melt-waitlist"
+                netlify
+                onSubmit={handleEmailSubmit}
+                className="flex flex-col gap-2"
+              >
+                <input type="hidden" name="form-name" value="melt-waitlist" />
                 <div className="flex gap-2">
                   <input
                     type="email"
+                    name="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
@@ -836,7 +666,7 @@ export default function Index() {
                     type="submit"
                     className="px-6 py-3 bg-primary-foreground text-primary font-bold rounded-xl hover:opacity-90 transition"
                   >
-                    Notify
+                    Notify Me
                   </button>
                 </div>
                 <button
@@ -858,9 +688,7 @@ export default function Index() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
               <h3 className="text-primary-foreground font-bold text-lg mb-4 font-serif">Melt</h3>
-              <p className="text-sm leading-relaxed">
-                Collagen that actually arrives. No stomach acid. No prep. Results in 14 days.
-              </p>
+              <p className="text-sm leading-relaxed">Collagen that actually arrives. No stomach acid. No prep. Results in 14 days.</p>
             </div>
             <div>
               <h4 className="text-primary-foreground font-semibold mb-4">Product</h4>
@@ -885,12 +713,12 @@ export default function Index() {
               </ul>
             </div>
           </div>
-
           <div className="border-t border-foreground border-opacity-20 pt-8 text-center text-sm">
             <p>© 2024 Melt. All rights reserved.</p>
           </div>
         </div>
       </footer>
+
     </div>
   );
 }
